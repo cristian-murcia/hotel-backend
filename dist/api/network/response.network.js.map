@@ -1,0 +1,1 @@
+{"version":3,"file":"response.network.js","sourceRoot":"","sources":["../../../api/network/response.network.ts"],"names":[],"mappings":";;;AAEA,MAAa,eAAe;IAExB,gBAAgB,CAAC;IAEV,QAAQ,CAAC,IAAS,EAAE,MAAc,EAAE,GAAa;QACpD,OAAO,GAAG,CAAC,MAAM,CAAC,MAAM,CAAC,CAAC,IAAI,CAAC;YAC3B,IAAI,EAAE,IAAI;SACb,CAAC,CAAC;IACP,CAAC;CACJ;AATD,0CASC"}
