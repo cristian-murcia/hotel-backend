@@ -25,8 +25,8 @@ export class HotelController {
      */
     public async getHotels(req: Request, res: Response) {
         let result = await this.hotelComponent.getHotels();
-        let hotels = result.hotels || [];
-        if (hotels.length > 0) {
+        let hotels = result.hotels  || [];
+        if (hotels?.length >= 0) {
             result.hotels = await this.addImageHotel(hotels)
         }
 
@@ -125,6 +125,8 @@ export class HotelController {
                 updatedAt: hoteles[i].updatedAt,
             });
         }
+        console.log(hotelWithImage);
+        
         return hotelWithImage;
     }
 

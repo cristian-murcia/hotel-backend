@@ -19,7 +19,7 @@ export class HomeController {
         let usuarioController = new UsuarioController();
         let imageController = new ImageController();
 
-        let proceso: number = 118;//req.body.proceso
+        let proceso: number = req.body.datos.proceso;
 
         switch (proceso) {
             case Process.getHotels:

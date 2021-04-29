@@ -10,7 +10,7 @@ const usuarioController = new UsuarioController();
 // Uso pocas rutas ya que suelo enviar un token para la misma petició
 //  y separarlas por el numero de proceso contenido en ellos
 
-router.get('/envio', homeController.envio);
+router.post('/envio', homeController.envio);
 //router.post('encode', homeController.encode);
 //router.post('decode', homeController.decode);
 
