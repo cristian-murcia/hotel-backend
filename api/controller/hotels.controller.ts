@@ -82,7 +82,7 @@ export class HotelController {
         }
 
         return this.response.response(result, result.status, res);
-    }
+    }  
 
     /***
      * Retornar una lista de hoteles por su categoria (estrellas)
