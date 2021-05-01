@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { CalificacionComponent } from '../components/calificacion.component';
 import { Coderror } from '../enum';
 import { ICalificacion } from '../interfaces/calificacion';
+import { CalificacionResponse } from '../interfaces/calificacion/calificacion.response';
 import { ResponseNetWork } from '../network';
 import { HotelController } from './hotels.controller';
 
@@ -24,8 +25,8 @@ export class CalificacionController {
      * @returns 
      */
     public async getCalificaciones(req: Request, res: Response) {
-        let id_hotel: number = 2; // req.body.datos.id_hotel;
-        let result: any;
+        let id_hotel: number = req.body.datos.id_hotel;
+        let result: CalificacionResponse;
 
         if (id_hotel > 0) {
             result = await this.calificacionComponent.getCalificacionesForHotel(id_hotel);
@@ -47,8 +48,8 @@ export class CalificacionController {
      * @returns 
      */
     public async getCalificacionForId(req: Request, res: Response) {
-        let id_hotel: number = 2; //req.body.datos.id_hotel; 
-        let id_user: number = 1; //req.body.datos.id_user;
+        let id_hotel: number = req.body.datos.id_hotel;
+        let id_user: number = req.body.datos.id_user;
         let result: any
 
         if (id_hotel > 0 && id_user > 0) {
@@ -71,12 +72,7 @@ export class CalificacionController {
      * @returns 
      */
     public async createCalificacion(req: Request, res: Response) {
-        let calificacion: ICalificacion = {
-            comentario: 'Malisimo',
-            estrellas: 5,
-            hotel_hotelID: 2,
-            usuario_userID: 1
-        } // req.body.datos.newCalificacion
+        let calificacion: ICalificacion = req.body.datos.newCalificacion
         let result: any;
 
         if (calificacion.comentario && calificacion.hotel_hotelID &&
@@ -103,18 +99,12 @@ export class CalificacionController {
      * @returns 
      */
     public async updateCalificacion(req: Request, res: Response) {
-        let calificacion: ICalificacion = {
-            idcalificacion: 2,
-            comentario: 'Malo',
-            estrellas: 1,
-            hotel_hotelID: 2,
-            usuario_userID: 2
-        } // req.body.datos.updateCalificacion
+        let calificacion: ICalificacion = req.body.datos.updateCalificacion
         let result: any;
 
         if (calificacion.idcalificacion && calificacion.idcalificacion > 0 &&
-            calificacion.comentario && calificacion.hotel_hotelID &&
-            calificacion.usuario_userID && calificacion.estrellas > 0
+            calificacion.comentario != '' && calificacion.hotel_hotelID > 0 &&
+            calificacion.usuario_userID > 0 && calificacion.estrellas > 0
         ) {
             result = await this.calificacionComponent.updateCalificacion(calificacion);
         } else {
@@ -136,7 +126,7 @@ export class CalificacionController {
      * @returns 
      */
     public async removeCalificacion(req: Request, res: Response) {
-        let id_calificacion: number = 6 // req.body.datos.id_calificacion
+        let id_calificacion: number = req.body.datos.id_calificacion
         let result: any;
 
         if (id_calificacion > 0) {
@@ -162,7 +152,7 @@ export class CalificacionController {
 
         let estrellasTotal = totalEstrellas / Number(result.calificaciones?.length);
         await this.hotelController.updatedCategory(id_hotel, estrellasTotal);
-        
+
     }
 
 

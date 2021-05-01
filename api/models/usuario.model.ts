@@ -54,7 +54,7 @@ Usuario.init(
             allowNull: false,
             validate: {
                 is: {
-                    args: ['^[a-zA-Z._-]+@[a-zA-z._-]+\.[a-zA-z]+\.[a-zA-Z]?$'],
+                    args: ['^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$'],
                     msg: 'EL Correo no es valido'
                 },
                 len: {
@@ -69,7 +69,7 @@ Usuario.init(
             validate: {
                 is: {
                     args: ['^([a-zA-Z0-9._-]+ ?[a-zA-Z0-9._-]+?)+$'],
-                    msg: 'La constraseña no son valido'
+                    msg: 'La contraseña no es valida'
                 },
                 len: {
                     args: [3, 255],

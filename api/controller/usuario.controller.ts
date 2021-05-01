@@ -33,7 +33,7 @@ export class UsuarioController {
      * @returns 
      */
     public async getUsuarioForId(req: Request, res: Response) {
-        let id_usuario: number = 2;//Number(req.body.datos.id_usuario);
+        let id_usuario: number = Number(req.body.datos.id_usuario);
         let result;
         if (id_usuario > 0) {
             result = await this.usuarioComponent.getUsuarioForID(id_usuario);
@@ -54,12 +54,7 @@ export class UsuarioController {
      * @returns 
      */
     public async createUsuario(req: Request, res: Response) {
-        let newUsuario: IUsuario = {
-            userName: 'cristian',
-            userSurname: 'murcia guzman',
-            userPassword: '123456789',
-            userMail: 'cristianmurcia@cheil.com'
-        } //req.body.datos.newUsuario;
+        let newUsuario: IUsuario = req.body.datos.newUsuario;
         let result: any;
 
         if (
@@ -134,16 +129,13 @@ export class UsuarioController {
     }
 
     public async login(req: Request, res: Response) {
-        let email: string = 'arnulfo@cheil.com'; // req.body.datos.email;
-        let clave: string = '12345'; // req.body.datos.clave;
+        let email: string = req.body.datos.email;
+        let clave: string = req.body.datos.clave;
         let result: any;
 
         if (email != '' && clave != '') {
-            console.log(email, clave);
-            
             result = await this.usuarioComponent.loginUsuario(email, clave);
-            console.log('Resultado controller ', result);
-            
+
         } else {
             result = {
                 code: Coderror.ErrorParametro,
@@ -151,7 +143,7 @@ export class UsuarioController {
                 status: 200
             }
         }
-        
+
         return this.response.response(result, result.status, res);
     }
 

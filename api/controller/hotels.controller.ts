@@ -25,7 +25,7 @@ export class HotelController {
      */
     public async getHotels(req: Request, res: Response) {
         let result = await this.hotelComponent.getHotels();
-        let hotels = result.hotels  || [];
+        let hotels = result.hotels || [];
         if (hotels?.length >= 0) {
             result.hotels = await this.addImageHotel(hotels)
         }
@@ -40,7 +40,7 @@ export class HotelController {
      * @returns 
      */
     public async getHotelForId(req: Request, res: Response) {
-        let id_hotel: number = 2;//Number(req.body.id_hotel);
+        let id_hotel: number = Number(req.body.datos.id_hotel);
         let result;
         if (id_hotel > 0) {
             result = await this.hotelComponent.getHotelForID(id_hotel);
@@ -67,12 +67,17 @@ export class HotelController {
      * @returns 
      */
     public async gethotelOrder(req: Request, res: Response) {
-        let formOrder = 'ASC'; //req.body.datos.formaOrder;
-        let campo = 'precio'; //req.body.datos.formaOrder;
+        let formOrder = req.body.datos.formaOrder;
+        let campo = req.body.datos.campo;
         let result: any;
 
         if (formOrder != '' && campo != '') {
             result = await this.hotelComponent.getHotelsOrder(campo, formOrder);
+
+            let hotels = result.hotels || [];
+            if (hotels?.length >= 0) {
+                result.hotels = await this.addImageHotel(hotels)
+            }
         } else {
             result = {
                 code: Coderror.ErrorParametro,
@@ -82,17 +87,22 @@ export class HotelController {
         }
 
         return this.response.response(result, result.status, res);
-    }  
+    }
 
     /***
      * Retornar una lista de hoteles por su categoria (estrellas)
      */
     public async getHotelForStart(req: Request, res: Response) {
-        let estrellas: number = 2; // Number(req.body.datos.estrellas);
+        let estrellas: number = Number(req.body.datos.estrellas);
         let result: any;
 
         if (estrellas > 0) {
             result = await this.hotelComponent.getHotelForStar(estrellas);
+
+            let hotels = result.hotels || [];
+            if (hotels?.length >= 0) {
+                result.hotels = await this.addImageHotel(hotels)
+            }
         } else {
             result = {
                 code: Coderror.ErrorParametro,
@@ -125,8 +135,7 @@ export class HotelController {
                 updatedAt: hoteles[i].updatedAt,
             });
         }
-        console.log(hotelWithImage);
-        
+
         return hotelWithImage;
     }
 

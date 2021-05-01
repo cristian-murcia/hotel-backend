@@ -1,4 +1,5 @@
 import { ValidationError } from "sequelize";
+import { values } from "sequelize/types/lib/operators";
 import { Coderror } from "../enum/coderror.enum";
 import { ICalificacion } from "../interfaces/calificacion";
 import { CalificacionResponse } from "../interfaces/calificacion/calificacion.response";
@@ -22,9 +23,10 @@ export class CalificacionComponent {
                     where: {
                         hotel_hotelID: id_hotel
                     },
+                    nest: true,
                     include: [{
                         model: Usuario,
-                        attributes: ['userName', 'userSurname'],
+                        attributes: [['userName', 'nombre'], ['userSurname', 'apellido']],
                     }],
 
                     raw: true,
@@ -148,14 +150,12 @@ export class CalificacionComponent {
      */
     public async updateCalificacion(data: ICalificacion): Promise<CalificacionResponse> {
         try {
-            delete data.createdAt;
             return await Calificacion.update(
                 data,
                 {
                     where: {
-                        hotel_hotelID: data.hotel_hotelID,
-                        usuario_userID: data.usuario_userID
-                    }
+                        idcalificacion: data.idcalificacion
+                    },
                 }
             ).then(result => {
                 if (result[0] == 1) {
@@ -163,7 +163,7 @@ export class CalificacionComponent {
                         code: Coderror.Exitoso,
                         mensaje: 'Calificación actualizada con exito',
                         status: 200,
-                        hotel: result[1]
+                        calificacions: result[1]
                     } as CalificacionResponse;
                 } else {
                     return {
@@ -178,7 +178,7 @@ export class CalificacionComponent {
                     code: Coderror.ErrorDatabase,
                     mensaje: 'Error Database',
                     status: 200,
-                    body: error.message
+                    body: error
                 } as CalificacionResponse;
             })
 

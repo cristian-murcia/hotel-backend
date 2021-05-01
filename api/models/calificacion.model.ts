@@ -58,8 +58,8 @@ Calificacion.init(
 Calificacion.hasOne(Usuario, {
     foreignKey: {
         name: 'userID',
-        allowNull: false
+        allowNull: false,
     },
-    sourceKey: 'usuario_userID'
+    sourceKey: 'usuario_userID',
 });
 Usuario.belongsTo(Calificacion);

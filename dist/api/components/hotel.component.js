@@ -137,7 +137,6 @@ class HotelComponent {
                         hotelID: data.hotelID
                     }
                 }).then(result => {
-                    console.log(typeof result, result[0]);
                     if (result[0] == 1) {
                         return {
                             code: coderror_enum_1.Coderror.Exitoso,
@@ -185,7 +184,6 @@ class HotelComponent {
                         hotelID: id_hotel
                     }
                 }).then(result => {
-                    console.log(result);
                     if (result == 1) {
                         return {
                             code: coderror_enum_1.Coderror.Exitoso,

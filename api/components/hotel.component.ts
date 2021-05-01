@@ -2,6 +2,7 @@ import { ValidationError } from "sequelize";
 import { Coderror } from "../enum/coderror.enum";
 import { IHotel } from "../interfaces/hotel";
 import { HotelResponse } from "../interfaces/hotel/hotel.response";
+import { Image } from "../models";
 import { Hotel } from '../models/hotel.model';
 
 export class HotelComponent {
@@ -216,7 +217,6 @@ export class HotelComponent {
                     }
                 }
             ).then(result => {
-                console.log(typeof result, result[0]);
 
                 if (result[0] == 1) {
                     return {
@@ -264,8 +264,6 @@ export class HotelComponent {
                     hotelID: id_hotel
                 }
             }).then(result => {
-                console.log(result);
-
                 if (result == 1) {
                     return {
                         code: Coderror.Exitoso,

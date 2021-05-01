@@ -112,7 +112,8 @@ export class UsuarioComponent {
                     return {
                         code: Coderror.Exitoso,
                         mensaje: 'Usuario creado con exito',
-                        status: 200
+                        status: 200,
+                        usuario: result
                     } as UsuarioResponse;
 
                 }).catch((error: ValidationError) => {
@@ -208,7 +209,6 @@ export class UsuarioComponent {
                     userID: id_usuario
                 }
             }).then(result => {
-                console.log(result);
 
                 if (result == 1) {
                     return {
@@ -263,8 +263,6 @@ export class UsuarioComponent {
                     raw: true
                 }
             ).then(result => {
-                console.log(result);
-
                 if (result != null) {
                     return {
                         code: Coderror.Exitoso,
