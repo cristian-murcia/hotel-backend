@@ -79,7 +79,7 @@ export class CalificacionComponent {
                         code: Coderror.Exitoso,
                         mensaje: 'Exitoso',
                         status: 200,
-                        hotel: result
+                        calificacion: result
                     } as CalificacionResponse;
                 } else {
                     return {
